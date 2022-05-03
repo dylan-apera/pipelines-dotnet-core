@@ -46,6 +46,6 @@ jobs:
     - name: Deploy web app
       uses: azure/webapps-deploy@v2
       with:
-        app-name: dylans-webapp
-        publish-profile: ${{ secrets.ACTIONS_SECRET  }}
+        app-name: dylans-webapp #user web application name
+        publish-profile: ${{ secrets.ACTIONS_SECRET  }} #Update user secret within GitHub
         package: webapp
