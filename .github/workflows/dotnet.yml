@@ -56,3 +56,9 @@ jobs:
         app-name: dylans-webapp #user web application name
         publish-profile: ${{ secrets.ACTIONS_SECRET  }} #Update user secret within GitHub
         package: webapp
+  
+  post_deploy_test: 
+    runs-on: ubuntu-latest
+    needs: release 
+    steps:
+    - run: echo "hello world"
