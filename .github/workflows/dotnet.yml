@@ -61,4 +61,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: release 
     steps:
-    - run: echo "hello world"
+    #- run: echo "hello world"
+    - uses: actions/checkout@main
+    - uses: actions/setup-dotnet@v2.1.0
+
+    - run: cd UnitTestProject1
+    - run: dotnet test UnitTestProject1
+
+
+
