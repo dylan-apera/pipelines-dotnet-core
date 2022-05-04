@@ -1,72 +1,72 @@
-name: .NET
+# name: .NET
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+# on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v2
+#       with:
+#         dotnet-version: 5.0.x
+#     - name: Restore dependencies
+#       run: dotnet restore
+#     - name: Build
+#       run: dotnet build --no-restore
+#     - name: Test
+#       run: dotnet test --no-build --verbosity normal
       
-    - name: Publish
-      run: dotnet publish -c Release -o website 
+#     - name: Publish
+#       run: dotnet publish -c Release -o website 
       
-    - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v2.3.1
-      with:
-        name: webapp
-        path: website/**
-        if-no-files-found: warn
+#     - name: Upload artifact for deployment job
+#       uses: actions/upload-artifact@v2.3.1
+#       with:
+#         name: webapp
+#         path: website/**
+#         if-no-files-found: warn
   
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - run: echo "Hello World"
-    #- uses: actions/checkout@v2
+#   test:
+#     runs-on: ubuntu-latest
+#     needs: build
+#     steps:
+#     - run: echo "Hello World"
+#     #- uses: actions/checkout@v2
 
-  release: 
-    runs-on: ubuntu-latest
-    needs: test 
-    steps:
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v2.1.0
-      with: #test to change state
-        name: webapp
-        path: webapp
-    - name: Deploy web app
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: dylans-webapp #user web application name
-        publish-profile: ${{ secrets.ACTIONS_SECRET  }} #Update user secret within GitHub
-        package: webapp
+#   release: 
+#     runs-on: ubuntu-latest
+#     needs: test 
+#     steps:
+#     - name: Download a Build Artifact
+#       uses: actions/download-artifact@v2.1.0
+#       with: #test to change state
+#         name: webapp
+#         path: webapp
+#     - name: Deploy web app
+#       uses: azure/webapps-deploy@v2
+#       with:
+#         app-name: dylans-webapp #user web application name
+#         publish-profile: ${{ secrets.ACTIONS_SECRET  }} #Update user secret within GitHub
+#         package: webapp
   
-  post_deploy_test: 
-    runs-on: ubuntu-latest
-    needs: release 
-    steps:
-    #- run: echo "hello world"
-    - uses: actions/checkout@main
-    - uses: actions/setup-dotnet@v2
+#   post_deploy_test: 
+#     runs-on: ubuntu-latest
+#     needs: release 
+#     steps:
+#     #- run: echo "hello world"
+#     - uses: actions/checkout@main
+#     - uses: actions/setup-dotnet@v2
 
-   # - run: cd UnitTestProject1
-    - run: dotnet test UnitTestProject1
+#    # - run: cd UnitTestProject1
+#     - run: dotnet test UnitTestProject1
 
 
 
