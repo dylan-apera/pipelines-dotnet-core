@@ -33,6 +33,12 @@ jobs:
         name: webapp
         path: website/**
         if-no-files-found: warn
+  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Hello World"
+    #- uses: actions/checkout@v2
 
   release: 
     runs-on: ubuntu-latest
