@@ -32,3 +32,6 @@
          name: webapp
          path: website/**
          if-no-files-found: warn
+
+  - name: Download a Build Artifact
+    uses: actions/download-artifact@v3.0.0
